@@ -19,27 +19,32 @@ import sys
 # ------------------------------------------
 # FUNCTION my_map
 # ------------------------------------------
-
-
 def my_map(input_stream, languages, num_top_entries, output_stream):
-    # Create dictionaries for each language
-    dicts = [dict(), dict(), dict()]
-    # Gather words in each langauge
+    dictionary = dict()
     for each_line in input_stream:
-        for each_dict, each_lang in zip(dicts, languages):
-            if each_line.split()[0] == each_lang:
-                each_dict[each_line.split()[1]] = each_line.split()[2]
-    # Create new dictionaries
-    new_dicts = [dict(), dict(), dict()]
-    # Sort and select the 5 highest values in each dictionary
-    for each_dict, each_new in zip(dicts, new_dicts):
-        for _ in range(num_top_entries):
-            each_new[max(each_dict, key=each_dict.get)] = each_dict[max(each_dict, key=each_dict.get)]
-            del each_dict[max(each_dict, key=each_dict.get)]
-    # Output top five words for each language
-    for each_dict, each_lang in zip(new_dicts, languages):
-        for each_line in each_dict:
-            output_stream.write(each_lang + " " + each_line + " " + each_dict[each_line] + "\n")
+        split_line = each_line.split()
+        lang_abrev = split_line[0]
+        if (lang_abrev[:2] in languages) == True:
+            if lang_abrev.__len__() == 2 or ("." in lang_abrev) == True:
+                if (lang_abrev in dictionary) == False:
+                    dictionary[lang_abrev] = []
+                dictionary[lang_abrev].append(split_line[1] + ", " + split_line[2])
+    for each_proj_name in dictionary:
+        each_proj = dictionary[each_proj_name]
+        sorted_proj = []
+        for each_line in each_proj:
+            (k, v) = get_kv(each_line)
+            sorted_proj.append((k, v))
+        sorted_proj = sorted(sorted_proj, key=lambda value: value[1], reverse=True)
+        for each in sorted_proj[:num_top_entries]:
+            output_stream.write(each_proj_name + " (" + each[0] + "\t" + each[1] + ")\n")
+
+
+# ------------------------------------------
+# Return key and value for line
+# ------------------------------------------
+def get_kv(line):
+    return line.split()[0], line.split()[1]
 
 
 # ------------------------------------------
@@ -74,8 +79,8 @@ if __name__ == '__main__':
     # 1. Input parameters
     debug = True
 
-    i_file_name = "C:/Users/ddelo/Dropbox/College/FourthYear/Semester2/Big Data/Ass1/A01 - " \
-                  "Hint1/my_dataset/pageviews-20180219-100000_0.txt "
+    i_file_name = "C:/Users/ddelo/Dropbox/College/FourthYear/Semester2/Big " \
+                  "Data/Ass1/my_dataset/pageviews-20180219-100000_0.txt "
     o_file_name = "mapResult.txt"
 
     languages = ["en", "es", "fr"]

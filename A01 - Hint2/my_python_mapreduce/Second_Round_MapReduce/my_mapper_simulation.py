@@ -14,11 +14,13 @@
 
 import codecs
 import os
+
 import my_mapper
 
-#------------------------------------------
+
+# ------------------------------------------
 # FUNCTION get_file_extension
-#------------------------------------------
+# ------------------------------------------
 def get_file_extension(file_name):
     # 1. We get the size of a string
     size = len(file_name) - 1
@@ -33,16 +35,17 @@ def get_file_extension(file_name):
 
     # 3. We collect the extension
     if found == True:
-        extension = file_name[(size+1):(len(file_name))]
+        extension = file_name[(size + 1):(len(file_name))]
     else:
         extension = ''
 
     # 4. We return the extension
     return extension
 
-#------------------------------------------
+
+# ------------------------------------------
 # FUNCTION select_files_from_directory_with_concrete_extension
-#------------------------------------------
+# ------------------------------------------
 def select_files_from_directory_with_concrete_extension(directory, extension):
     # 1. We get the current directory and ask for all its elements
     os.chdir(directory)
@@ -63,40 +66,43 @@ def select_files_from_directory_with_concrete_extension(directory, extension):
     # 4. We return the list of files
     return selected_files
 
+
 # ------------------------------------------
 # FUNCTION simulating_my_map
 # ------------------------------------------
-def simulating_my_map(directory, extension, output_stream):
+def simulating_my_map(directory, extension, output_stream, per_language_or_project):
     # 1. We get the files to be processed
     input_files = select_files_from_directory_with_concrete_extension(directory, extension)
 
     # 2. We process them
     for i in range(0, len(input_files)):
         # 3.1. We open the file to be read
-        input_stream = open(input_files[i], "r")
+        input_stream = open(input_files[i], "r", encoding="utf8")
 
         # 3.2. We process it
-        my_mapper.my_map(input_stream, output_stream)
+        my_mapper.my_map(input_stream, per_language_or_project, output_stream)
 
         # 3.3. We close the file
         input_stream.close()
 
     output_stream.close()
 
+
 # ------------------------------------------
 # FUNCTION my_main
 # ------------------------------------------
-def my_main(ext, o_file_name):
+def my_main(ext, o_file_name, per_language_or_project):
     # 1. Set the directory
-    dataset_dir = "C://Users//Ignacio.Castineiras//Desktop//Big Data Analytics//2. Code Examples//L07-08. MapReduce Jobs//Percentage of Words//my_dataset"
+    dataset_dir = "C:\\Users\\ddelo\\Dropbox\\College\\FourthYear\\Semester2\\Big Data\\Ass1\\my_dataset"
     # 2. We open the file for writing
     output_file = codecs.open(o_file_name, "w", encoding='utf-8')
 
     # 3. We trigger the map_simulation
-    simulating_my_map(dataset_dir, ext, output_file)
+    simulating_my_map(dataset_dir, ext, output_file, per_language_or_project)
 
     # 4. We close the file
     output_file.close()
+
 
 # ---------------------------------------------------------------
 #           PYTHON EXECUTION
@@ -110,6 +116,6 @@ if __name__ == '__main__':
     ext = "txt"
 
     o_file_name = "map_simulation.txt"
-
+    per_language_or_project = False  # True for language and False for project
     # 2. Call to the function
-    my_main(ext, o_file_name)
+    my_main(ext, o_file_name, per_language_or_project)

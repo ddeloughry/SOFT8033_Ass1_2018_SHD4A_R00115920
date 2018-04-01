@@ -14,11 +14,13 @@
 
 import codecs
 import os
+
 import my_mapper
 
-#------------------------------------------
+
+# ------------------------------------------
 # FUNCTION get_file_extension
-#------------------------------------------
+# ------------------------------------------
 def get_file_extension(file_name):
     # 1. We get the size of a string
     size = len(file_name) - 1
@@ -33,16 +35,17 @@ def get_file_extension(file_name):
 
     # 3. We collect the extension
     if found == True:
-        extension = file_name[(size+1):(len(file_name))]
+        extension = file_name[(size + 1):(len(file_name))]
     else:
         extension = ''
 
     # 4. We return the extension
     return extension
 
-#------------------------------------------
+
+# ------------------------------------------
 # FUNCTION select_files_from_directory_with_concrete_extension
-#------------------------------------------
+# ------------------------------------------
 def select_files_from_directory_with_concrete_extension(directory, extension):
     # 1. We get the current directory and ask for all its elements
     os.chdir(directory)
@@ -63,6 +66,7 @@ def select_files_from_directory_with_concrete_extension(directory, extension):
     # 4. We return the list of files
     return selected_files
 
+
 # ------------------------------------------
 # FUNCTION simulating_my_map
 # ------------------------------------------
@@ -73,7 +77,7 @@ def simulating_my_map(directory, extension, output_stream):
     # 2. We process them
     for i in range(0, len(input_files)):
         # 3.1. We open the file to be read
-        input_stream = open(input_files[i], "r")
+        input_stream = open(input_files[i], "r", encoding="utf8")
 
         # 3.2. We process it
         my_mapper.my_map(input_stream, output_stream)
@@ -83,12 +87,13 @@ def simulating_my_map(directory, extension, output_stream):
 
     output_stream.close()
 
+
 # ------------------------------------------
 # FUNCTION my_main
 # ------------------------------------------
 def my_main(ext, o_file_name):
     # 1. Set the directory
-    dataset_dir = "C://Users//Ignacio.Castineiras//Desktop//Big Data Analytics//2. Code Examples//L07-08. MapReduce Jobs//Percentage of Words//my_dataset"
+    dataset_dir = "C:\\Users\\ddelo\\Dropbox\\College\\FourthYear\\Semester2\\Big Data\\Ass1\\my_dataset"
     # 2. We open the file for writing
     output_file = codecs.open(o_file_name, "w", encoding='utf-8')
 
@@ -97,6 +102,7 @@ def my_main(ext, o_file_name):
 
     # 4. We close the file
     output_file.close()
+
 
 # ---------------------------------------------------------------
 #           PYTHON EXECUTION

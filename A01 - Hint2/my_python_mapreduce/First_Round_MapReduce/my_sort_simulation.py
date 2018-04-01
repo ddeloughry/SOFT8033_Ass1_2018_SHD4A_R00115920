@@ -14,9 +14,10 @@
 
 import codecs
 
-#---------------------------------------
+
+# ---------------------------------------
 #  FUNCTION get_key_value
-#---------------------------------------
+# ---------------------------------------
 def get_key_value(line):
     # 1. Get rid of the end of line at the end of the string
     line = line.replace('\n', '')
@@ -28,6 +29,7 @@ def get_key_value(line):
     key = words[0]
     value = words[1]
     return key, value
+
 
 # ------------------------------------------
 # FUNCTION simulating_sort
@@ -53,6 +55,7 @@ def simulating_sort(input_stream, output_stream):
         res = key + '\t' + value + '\n'
         output_stream.write(res)
 
+
 # ------------------------------------------
 # FUNCTION my_main
 # ------------------------------------------
@@ -67,6 +70,7 @@ def my_main(i_file_name, o_file_name):
     # 3. We close the files
     input_file.close()
     output_file.close()
+
 
 # ---------------------------------------------------------------
 #           PYTHON EXECUTION

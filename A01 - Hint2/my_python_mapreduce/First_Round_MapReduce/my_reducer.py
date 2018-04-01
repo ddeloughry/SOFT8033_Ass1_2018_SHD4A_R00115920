@@ -12,14 +12,19 @@
 # but it will execute nothing yet.
 # --------------------------------------------------------
 
-import sys
 import codecs
+import sys
+
 
 # ------------------------------------------
 # FUNCTION my_reduce
 # ------------------------------------------
 def my_reduce(input_stream, output_stream):
-    pass
+    total = 0
+    for each_line in input_stream:
+        total = total + int((each_line.split())[1])
+    output_stream.write("num_words\t" + str(total) + "\n")
+
 
 # ------------------------------------------
 # FUNCTION my_main
@@ -38,6 +43,7 @@ def my_main(debug, i_file_name, o_file_name):
 
     # We launch the Map program
     my_reduce(my_input_stream, my_output_stream)
+
 
 # ---------------------------------------------------------------
 #           PYTHON EXECUTION

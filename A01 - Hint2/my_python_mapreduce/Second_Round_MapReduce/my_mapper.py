@@ -15,11 +15,29 @@
 import codecs
 import sys
 
+
 # ------------------------------------------
 # FUNCTION my_map
 # ------------------------------------------
 def my_map(input_stream, per_language_or_project, output_stream):
-    pass
+    dictionary = dict()
+    for each_line in input_stream:
+        lang = (each_line.split())[0]
+        if '.' in lang:
+            lang = (each_line.split())[0].split('.')[1]
+            if per_language_or_project:
+                lang = (each_line.split())[0].split('.')[0]
+        elif not per_language_or_project:
+            lang = "wikipedia"
+        if lang not in dictionary:
+            dictionary[lang] = 0
+        if (each_line.split())[-2].isdigit():
+            dictionary[lang] = dictionary[lang] + int((each_line.split())[-2])
+        elif (each_line.split())[1].isdigit():
+            dictionary[lang] = dictionary[lang] + int((each_line.split())[1])
+    for key in dictionary:
+        output_stream.write(key + "\t" + str(dictionary[key]) + "\n")
+
 
 # ------------------------------------------
 # FUNCTION my_main
@@ -39,6 +57,7 @@ def my_main(debug, i_file_name, o_file_name, per_language_or_project):
     # We launch the Map program
     my_map(my_input_stream, per_language_or_project, my_output_stream)
 
+
 # ---------------------------------------------------------------
 #           PYTHON EXECUTION
 # This is the main entry point to the execution of our program.
@@ -50,10 +69,10 @@ if __name__ == '__main__':
     # 1. Input parameters
     debug = True
 
-    i_file_name = "pageviews-20180219-100000_0.txt"
+    i_file_name = "C:\\Users\\ddelo\\Dropbox\\College\\FourthYear\\Semester2\\Big Data\\Ass1\\my_dataset\\pageviews-20180219-100000_0.txt"
     o_file_name = "mapResult.txt"
 
-    per_language_or_project = True # True for language and False for project
+    per_language_or_project = True  # True for language and False for project
 
     # 2. Call to the function
     my_main(debug, i_file_name, o_file_name, per_language_or_project)
